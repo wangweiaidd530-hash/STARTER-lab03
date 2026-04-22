@@ -251,9 +251,9 @@ bool IntBST::remove(int value){
         delete node;
     }
     else {
-        Node* succ = getSuccessorNode(value);
+        Node* succ = getSuccessorNode(node->info);
         node->info = succ->info;
-        remove(succ->info);
+        return remove(succ->info);
     }
     return true;
 }
