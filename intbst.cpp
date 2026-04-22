@@ -1,4 +1,5 @@
 // intbst.cpp
+#include "intbst.h"
 // Implements class IntBST
 // constructor sets up empty tree
 IntBST::IntBST() { 
