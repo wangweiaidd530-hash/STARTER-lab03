@@ -2,7 +2,7 @@
 // Implements class IntBST
 // constructor sets up empty tree
 IntBST::IntBST() { 
-
+    root = nullptr;
 }
 
 // destructor deletes all nodes
