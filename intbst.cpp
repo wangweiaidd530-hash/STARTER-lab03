@@ -7,6 +7,7 @@ IntBST::IntBST() {
 
 // destructor deletes all nodes
 IntBST::~IntBST() {
+    clear(root);
     root == nullptr;
 }
 
@@ -22,26 +23,11 @@ void IntBST::clear(Node *n) {
 
 // insert value in tree; return false if duplicate
 bool IntBST::insert(int value) {
-    if (value == n->data) {
-    	return false;
+    if (root == nullptr) {
+        root = new Node(value);
+        return true;
     }
-    if (value < n->data) {
-    	if (n->left == nullptr) {
-	    n->left = new Node(value); // I should quote that ChatGPT said this is a legal way to do this, my first thought was to write
-				       // n->left = new Node; n->left->data = value; n->left->left = nullptr; n->left->right = nullptr;
-	}
-	else {
-	    insert(value, n->left);
-	}
-    }
-    else {
-    	if (n->right == nullptr) {
-	    n->right = new Node(value);
-	}
-	else {
-	    insert(value, n->right);
-	}
-    }
+    return insert(value, root);
 }
 
 // recursive helper for insert (assumes n is never 0)
@@ -52,6 +38,8 @@ bool IntBST::insert(int value, Node *n) {
     if (value < n->data) {
         if (n->left == nullptr) {
             n->left = new Node(value);
+	    n->left->parent = n;
+	    return true;
         }
         else {
             insert(value, n->left);
@@ -60,6 +48,8 @@ bool IntBST::insert(int value, Node *n) {
     else {
         if (n->right == nullptr) {
             n->right = new Node(value);
+	    n->left->parent = n;
+	    return true;
         }
         else {
             insert(value, n->right);
@@ -75,7 +65,7 @@ void IntBST::printPreOrder() const {
 // recursive helper for printPreOrder()
 void IntBST::printPreOrder(Node *n) const {
     if (n == nullptr) {
-	return 0;
+	return;
     }
     cout << n->data << " ";
     printPreOrder(n->left);
@@ -197,7 +187,7 @@ int IntBST::getPredecessor(int value) const{
         return 0;
     }
     else {
-        return resultNode;
+        return resultNode->data;
     }
 }
 
@@ -230,7 +220,7 @@ int IntBST::getSuccessor(int value) const{
         return 0;
     }
     else {
-        return resultNode;
+        return resultNode->data;
     }
 }
 
@@ -265,8 +255,8 @@ bool IntBST::remove(int value){
     }
     else {
         Node* succ = getSuccessorNode(value);
-        node->info = succ->info;
-        remove(succ->info);
+        node->info = succ->data;
+        remove(succ->data);
     }
     return true;
 }
