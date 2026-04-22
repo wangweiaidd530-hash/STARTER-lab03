@@ -39,25 +39,21 @@ bool IntBST::insert(int value, Node *n) {
     if (value < n->info) {
         if (n->left == nullptr) {
             n->left = new Node(value);
-	    n->left->parent = n;
-	    return true;
+            n->left->parent = n;
+            return true;
+        } else {
+            return insert(value, n->left);
         }
-        else {
-            insert(value, n->left);
-        }
-    }
-    else {
+    } else {
         if (n->right == nullptr) {
             n->right = new Node(value);
-	    n->left->parent = n;
-	    return true;
-        }
-        else {
-            insert(value, n->right);
+            n->right->parent = n;
+            return true;
+        } else {
+            return insert(value, n->right);
         }
     }
 }
-
 // print tree info pre-order
 void IntBST::printPreOrder() const {
     printPreOrder(root);
