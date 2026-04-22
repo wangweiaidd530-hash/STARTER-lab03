@@ -251,9 +251,24 @@ bool IntBST::remove(int value){
         delete node;
     }
     else {
-        Node* succ = getSuccessorNode(node->info);
+        Node* succ = node->right;
+        while (succ->left) {
+            succ = succ->left;
+        }
         node->info = succ->info;
-        return remove(succ->info);
+        Node* succChild = succ->right;
+
+        if (succ->parent->left == succ) {
+            succ->parent->left = succChild;
+        } else {
+            succ->parent->right = succChild;
+        }
+
+        if (succChild) {
+            succChild->parent = succ->parent;
+        }
+
+        delete succ;
     }
     return true;
 }
