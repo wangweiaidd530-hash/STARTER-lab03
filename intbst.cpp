@@ -9,7 +9,7 @@ IntBST::IntBST() {
 // destructor deletes all nodes
 IntBST::~IntBST() {
     clear(root);
-    root == nullptr;
+    root = nullptr;
 }
 
 // recursive helper for destructor
@@ -33,10 +33,10 @@ bool IntBST::insert(int value) {
 
 // recursive helper for insert (assumes n is never 0)
 bool IntBST::insert(int value, Node *n) {
-    if (value == n->data) {
+    if (value == n->info) {
         return false;
     }
-    if (value < n->data) {
+    if (value < n->info) {
         if (n->left == nullptr) {
             n->left = new Node(value);
 	    n->left->parent = n;
@@ -58,7 +58,7 @@ bool IntBST::insert(int value, Node *n) {
     }
 }
 
-// print tree data pre-order
+// print tree info pre-order
 void IntBST::printPreOrder() const {
     printPreOrder(root);
 }
@@ -68,37 +68,37 @@ void IntBST::printPreOrder(Node *n) const {
     if (n == nullptr) {
 	return;
     }
-    cout << n->data << " ";
+    cout << n->info << " ";
     printPreOrder(n->left);
     printPreOrder(n->right);
 }
 
-// print tree data in-order, with helper
+// print tree info in-order, with helper
 void IntBST::printInOrder() const {
     printInOrder(root);
 }
 void IntBST::printInOrder(Node *n) const {
     if (n == nullptr) {
-        return 0;
+        return;
     }
     printInOrder(n->left);
-    cout << n->data << " ";
+    cout << n->info << " ";
     printInOrder(n->right);
 
 }
 
-// prints tree data post-order, with helper
+// prints tree info post-order, with helper
 void IntBST::printPostOrder() const {
     printPostOrder(root);
 }
 
 void IntBST::printPostOrder(Node *n) const {
     if (n == nullptr) {
-    	return 0;
+    	return;
     }
     printPostOrder(n->left);
     printPostOrder(n->right);
-    cout << n->data << " ";
+    cout << n->info << " ";
 }
 
 // return sum of values in tree
@@ -111,7 +111,7 @@ int IntBST::sum(Node *n) const {
     if (n == nullptr) {
         return 0;
     }
-    return n->data + sum(n->left) + sum(n->right);
+    return n->info + sum(n->left) + sum(n->right);
 }
 
 // return count of values
@@ -137,10 +137,10 @@ IntBST::Node* IntBST::getNodeFor(int value, Node* n) const{
     if (n == nullptr) {
         return nullptr;
     }
-    if (n->data == value) {
+    if (n->info == value) {
         return n;
     }
-    if (n->data < value) {
+    if (n->info < value) {
         return getNodeFor(value, n->right);
     }
     else {
@@ -188,7 +188,7 @@ int IntBST::getPredecessor(int value) const{
         return 0;
     }
     else {
-        return resultNode->data;
+        return resultNode->info;
     }
 }
 
@@ -221,7 +221,7 @@ int IntBST::getSuccessor(int value) const{
         return 0;
     }
     else {
-        return resultNode->data;
+        return resultNode->info;
     }
 }
 
@@ -256,8 +256,8 @@ bool IntBST::remove(int value){
     }
     else {
         Node* succ = getSuccessorNode(value);
-        node->info = succ->data;
-        remove(succ->data);
+        node->info = succ->info;
+        remove(succ->info);
     }
     return true;
 }
