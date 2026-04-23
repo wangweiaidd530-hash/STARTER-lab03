@@ -229,9 +229,11 @@ bool IntBST::remove(int value){
     if (!node->left && !node->right) {
         if (node->parent == nullptr) {
             root = nullptr;
-        } else if (node->parent->left == node) {
+        }
+       	else if (node->parent->left == node) {
             node->parent->left = nullptr;
-        } else {
+        }
+       	else {
             node->parent->right = nullptr;
         }
         delete node;
@@ -241,34 +243,34 @@ bool IntBST::remove(int value){
 
         if (node->parent == nullptr) {
             root = child;
-        } else if (node->parent->left == node) {
+        }
+       	else if (node->parent->left == node) {
             node->parent->left = child;
-        } else {
+        }
+       	else {
             node->parent->right = child;
         }
-
         child->parent = node->parent;
         delete node;
     }
     else {
-        Node* succ = node->right;
-        while (succ->left) {
-            succ = succ->left;
+        Node* succNode = node->right;
+        while (succNode->left) {
+            succNode = succNode->left;
         }
-        node->info = succ->info;
-        Node* succChild = succ->right;
+        node->info = succNode->info;
+        Node* succChild = succNode->right;
 
-        if (succ->parent->left == succ) {
-            succ->parent->left = succChild;
-        } else {
-            succ->parent->right = succChild;
+        if (succNode->parent->left == succNode) {
+            succNode->parent->left = succChild;
         }
-
+       	else {
+            succNode->parent->right = succChild;
+        }
         if (succChild) {
-            succChild->parent = succ->parent;
+            succChild->parent = succNode->parent;
         }
-
-        delete succ;
+        delete succNode;
     }
     return true;
 }
